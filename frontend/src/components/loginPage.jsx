@@ -16,7 +16,7 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8000/api/login/", {
+      const res = await axios.post("https://stockmanagement-vnwu.onrender.com/api/login/", {
         username: loginData.username,
         password: loginData.password,
       });
@@ -31,7 +31,7 @@ const LoginPage = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8000/api/register/", {
+      const res = await axios.post("https://stockmanagement-vnwu.onrender.com/api/register/", {
         name: registerData.name,
         username: registerData.username,
         email: registerData.email,

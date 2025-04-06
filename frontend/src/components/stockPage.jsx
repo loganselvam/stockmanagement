@@ -19,7 +19,7 @@ const StockView = () => {
   const fetchStockData = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://127.0.0.1:8000/api/stock/", {
+      const res = await axios.get("https://stockmanagement-vnwu.onrender.com/api/stock/", {
         headers: {
           Authorization: `Token ${token}`,
         },
@@ -64,7 +64,7 @@ const StockView = () => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {
         const token = localStorage.getItem("token");
-        await axios.delete(`http://127.0.0.1:8000/api/delete/${id}/`, {
+        await axios.delete(`https://stockmanagement-vnwu.onrender.com/api/delete/${id}/`, {
           headers: {
             Authorization: `Token ${token}`,
           },
@@ -100,7 +100,7 @@ const StockView = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `http://127.0.0.1:8000/api/update/${editingProduct.id}/`,
+        `https://stockmanagement-vnwu.onrender.com/api/update/${editingProduct.id}/`,
         formData,
         {
           headers: {
