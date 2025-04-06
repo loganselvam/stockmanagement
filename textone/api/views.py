@@ -141,7 +141,6 @@ class ImportCSVView(APIView):
             name = row['name']
             category = row['category']
 
-            # Check if product exists with same name and category
             product, created = Product.objects.get_or_create(
                 name=name,
                 category=category,
@@ -155,7 +154,6 @@ class ImportCSVView(APIView):
             )
 
             if not created:
-                # If already exists, update the values (combine logic)
                 product.quantity += int(row.get("quantity", 0))
                 product.sold += int(row.get("sold", 0))
                 product.description = row.get("description", product.description)

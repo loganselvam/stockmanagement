@@ -66,7 +66,7 @@ const ProductForm = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4 bg-white rounded-2xl shadow-xl w-full max-w-5xl p-6">
         
-        {/* Form Section - Full width on mobile, 2 cols on md+ */}
+        
         <div className="col-span-1 md:col-span-2 space-y-4">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">Register Product</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -81,7 +81,7 @@ const ProductForm = () => {
             </button>
           </form>
 
-          {/* CSV Import Section */}
+         
           <div className="mt-6">
             <label className="block text-gray-700 font-semibold mb-2">Import CSV</label>
             <input
@@ -99,7 +99,7 @@ const ProductForm = () => {
           </div>
         </div>
 
-        {/* Image - Hidden on small screens, visible on md+ */}
+        
         <div className="hidden md:flex col-span-3 items-center justify-center bg-gradient-to-br from-blue-100 to-white rounded-xl">
           <img
             src="src/assets/4016257.jpg"
