@@ -49,7 +49,7 @@ const LoginPage = () => {
       <div className="w-full md:w-1/2 flex items-center justify-center bg-gray-100 p-6">
         <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-8">
           <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">
-            Welcome Back 👋
+            Welcome to Our Store
           </h2>
           <form className="space-y-5" onSubmit={handleLogin}>
             <div>
@@ -97,7 +97,7 @@ const LoginPage = () => {
         <img
           src="src\assets\4016257.jpg"
           alt="Login Illustration"
-          className="w-full h-full object-contain"
+          className="w-full h-full object-fit"
         />
       </div>
 
