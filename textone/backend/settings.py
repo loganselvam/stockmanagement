@@ -97,14 +97,8 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dbname_jkmq',
-        'USER': 'salesman',
-        'PASSWORD': 'YYs1GSyN4r3EXx5ujLClsJke0uiZsXF3',
-        'HOST': 'dpg-cvpc6uvgi27c73b3i0e0-a.db.render.com',
-        'PORT': '3306', 
-    }
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+
 }
 
 
