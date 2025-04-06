@@ -1,6 +1,5 @@
 Django
 djangorestframework
-mysqlclient
 gunicorn
 whitenoise
 django-cors-headers
