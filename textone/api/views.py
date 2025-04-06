@@ -55,11 +55,36 @@ class StockView(APIView):
         products = Product.objects.all()
         print("products")
         for i in products:
-            print(i.name,i.category,i.price,i.sold)
+            print(i.id,i.name,i.category,i.price,i.sold,i.description)
         total_revenue = sum([p.revenue() for p in products])
-        print(total_revenue)
+        # print(total_revenue)
         serializer = ProductSerializer(products, many=True)
         return Response({
             'products': serializer.data,
             'total_revenue': total_revenue
         })
+    
+    def put(self, request, pk=None):
+        try:
+            product_id = pk or request.data.get("id")
+            product = Product.objects.get(id=product_id)
+            serializer = ProductSerializer(product, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response({"message": "Product updated successfully", "product": serializer.data})
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Product.DoesNotExist:
+            return Response({"error": "Product not found."}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk=None):
+        try:
+            product_id = pk or request.data.get("id")
+            product = Product.objects.get(id=product_id)
+            product.delete()
+            return Response({"message": "Product deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
+        except Product.DoesNotExist:
+            return Response({"error": "Product not found."}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
