@@ -8,11 +8,17 @@ const ProductForm = () => {
     quantity: "",
     price: "",
     category: "",
-    sold:""
+    sold: "",
   });
+
+  const [csvFile, setCsvFile] = useState(null);
 
   const handleChange = (e) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
+  };
+
+  const handleCSVChange = (e) => {
+    setCsvFile(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
@@ -25,17 +31,43 @@ const ProductForm = () => {
         },
       });
       alert("Product registered successfully!");
-      setProduct({ name: "", description: "", quantity: "", price: "", category: "" ,sold:""});
+      setProduct({ name: "", description: "", quantity: "", price: "", category: "", sold: "" });
     } catch (error) {
       alert(error.response?.data?.error || "Failed to register product.");
     }
   };
 
+  const handleImportCSV = async () => {
+    if (!csvFile) {
+      alert("Please select a CSV file first.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", csvFile);
+
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.post("http://127.0.0.1:8000/api/import/", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Token ${token}`,
+        },
+      });
+      alert("CSV imported successfully!");
+      setCsvFile(null);
+    } catch (error) {
+      console.error(error);
+      alert(error.response?.data?.error || "CSV import failed.");
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      <div className="grid grid-cols-5 gap-4 bg-white rounded-2xl shadow-xl w-full max-w-5xl p-6">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-4 bg-white rounded-2xl shadow-xl w-full max-w-5xl p-6">
         
-        <div className="col-span-2 space-y-4">
+        {/* Form Section - Full width on mobile, 2 cols on md+ */}
+        <div className="col-span-1 md:col-span-2 space-y-4">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">Register Product</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <input type="text" name="name" value={product.name} onChange={handleChange} placeholder="Name" className="w-full p-2 border rounded-lg" />
@@ -48,11 +80,32 @@ const ProductForm = () => {
               Submit
             </button>
           </form>
+
+          {/* CSV Import Section */}
+          <div className="mt-6">
+            <label className="block text-gray-700 font-semibold mb-2">Import CSV</label>
+            <input
+              type="file"
+              accept=".csv"
+              onChange={handleCSVChange}
+              className="block w-full mb-2 text-sm text-gray-600"
+            />
+            <button
+              onClick={handleImportCSV}
+              className="w-full bg-green-600 text-white py-2 rounded-xl hover:bg-green-700"
+            >
+              Import CSV
+            </button>
+          </div>
         </div>
 
-        {/* Right side: Image / Design (3fr) */}
-        <div className="col-span-3 flex items-center justify-center bg-gradient-to-br from-blue-100 to-white rounded-xl">
-          <img src="https://source.unsplash.com/400x300/?product" alt="Product" className="rounded-xl object-cover max-h-80 shadow-lg" />
+        {/* Image - Hidden on small screens, visible on md+ */}
+        <div className="hidden md:flex col-span-3 items-center justify-center bg-gradient-to-br from-blue-100 to-white rounded-xl">
+          <img
+            src="src/assets/4016257.jpg"
+            alt="Product"
+            className="rounded-xl object-fill shadow-lg max-h-[400px]"
+          />
         </div>
       </div>
     </div>

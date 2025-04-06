@@ -8,6 +8,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from .models import Product
 from .serializers import ProductSerializer
+from django.http import HttpResponse,JsonResponse
+import csv
+import io
 
 
 class RegisterView(APIView):
@@ -88,3 +91,80 @@ class StockView(APIView):
             return Response({"error": "Product not found."}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
+
+# CSV Export/import
+
+class ExportCSVView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="products.csv"'
+
+        writer = csv.writer(response)
+        writer.writerow(['Username', 'Name', 'Description', 'Quantity', 'Price', 'Category', 'Sold'])
+
+        products = Product.objects.all()
+        for product in products:
+            writer.writerow([
+                product.user.username if product.user else '',  # Optional user
+                product.name,
+                product.description,
+                product.quantity,
+                product.price,
+                product.category,
+                product.sold
+            ])
+
+        return response
+    
+
+
+
+class ImportCSVView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        file = request.FILES.get("file")
+
+        if not file or not file.name.endswith('.csv'):
+            return JsonResponse({"error": "Please upload a valid CSV file."}, status=400)
+
+        decoded_file = file.read().decode('utf-8').splitlines()
+        reader = csv.DictReader(decoded_file)
+
+        imported_count = 0
+        updated_count = 0
+
+        for row in reader:
+            name = row['name']
+            category = row['category']
+
+            # Check if product exists with same name and category
+            product, created = Product.objects.get_or_create(
+                name=name,
+                category=category,
+                defaults={
+                    "description": row.get("description", ""),
+                    "quantity": int(row.get("quantity", 0)),
+                    "price": float(row.get("price", 0)),
+                    "sold": int(row.get("sold", 0)),
+                    "user": request.user
+                }
+            )
+
+            if not created:
+                # If already exists, update the values (combine logic)
+                product.quantity += int(row.get("quantity", 0))
+                product.sold += int(row.get("sold", 0))
+                product.description = row.get("description", product.description)
+                product.price = float(row.get("price", product.price))
+                product.save()
+                updated_count += 1
+            else:
+                imported_count += 1
+
+        return JsonResponse({
+            "message": f"Import completed. {imported_count} new and {updated_count} updated."
+        })

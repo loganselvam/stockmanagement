@@ -13,6 +13,8 @@ const StockView = () => {
     category: "",
     sold: "",
   });
+  const [filterCategory, setFilterCategory] = useState("");
+  const [sortBy, setSortBy] = useState("");
 
   const fetchStockData = async () => {
     try {
@@ -35,7 +37,25 @@ const StockView = () => {
       console.error("Error fetching stock data:", error);
     }
   };
-
+  const handleExportCSV = () => {
+    const headers = ["Name", "Price", "Quantity", "Category", "Sold"];
+    const rows = products.map(product =>
+      [product.name, product.price, product.quantity, product.category, product.sold]
+    );
+  
+    let csvContent =
+      "data:text/csv;charset=utf-8," +
+      [headers, ...rows].map(e => e.join(",")).join("\n");
+  
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "products_export.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+  
   useEffect(() => {
     fetchStockData();
   }, []);
@@ -104,10 +124,50 @@ const StockView = () => {
 
   return (
     <div className="space-y-8">
+      
       {/* Available Stock */}
       <div className="bg-white p-4 rounded-xl shadow">
         <h2 className="text-xl font-semibold mb-4 text-gray-800">Available Stock</h2>
-        <table className="w-full text-left">
+        <div className="flex justify-end mb-4">
+          <button
+            onClick={handleExportCSV}
+            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+          >
+            Export CSV
+          </button>
+        </div>
+        
+
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
+          <div className="w-full sm:w-auto">
+            <label className="mr-2 font-medium">Filter by Category:</label>
+            <input
+              type="text"
+              placeholder="e.g. Electronics"
+              value={filterCategory}
+              onChange={(e) => setFilterCategory(e.target.value)}
+              className="w-full sm:w-64 px-3 py-1 border rounded"
+            />
+          </div>
+
+          <div className="w-full sm:w-auto">
+            <label className="mr-2 font-medium">Sort By:</label>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="w-full sm:w-64 px-3 py-1 border rounded"
+            >
+              <option value="">-- Select --</option>
+              <option value="name">Name</option>
+              <option value="price">Price</option>
+              <option value="quantity">Quantity</option>
+            </select>
+          </div>
+        </div>
+
+
+        <div className="overflow-x-auto">
+        <table className="w-full text-left min-w-[600px]">
           <thead>
             <tr>
               <th className="py-2">Name</th>
@@ -119,7 +179,17 @@ const StockView = () => {
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
+          {products
+              .filter((product) =>
+                filterCategory ? product.category.toLowerCase().includes(filterCategory.toLowerCase()) : true
+              )
+              .sort((a, b) => {
+                if (sortBy === "name") return a.name.localeCompare(b.name);
+                if (sortBy === "price") return a.price - b.price;
+                if (sortBy === "quantity") return a.quantity - b.quantity;
+                return 0;
+              })
+              .map((product) => (
               <tr key={product.id} className="border-t">
                 <td className="py-2">{product.name}</td>
                 <td>{product.quantity}</td>
@@ -145,12 +215,14 @@ const StockView = () => {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
 
       {/* Sold Products */}
       <div className="bg-white p-4 rounded-xl shadow">
         <h2 className="text-xl font-semibold mb-4 text-gray-800">Sold Products</h2>
-        <table className="w-full text-left">
+        <div className="overflow-x-auto">
+        <table className="w-full text-left min-w-[600px]">
           <thead>
             <tr>
               <th className="py-2">Name</th>
@@ -170,6 +242,8 @@ const StockView = () => {
             ))}
           </tbody>
         </table>
+
+      </div>
       </div>
 
       {/* Total Revenue */}

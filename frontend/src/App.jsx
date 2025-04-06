@@ -19,6 +19,7 @@ function App()  {
         <Route path="/home" element={<HomePage />} />
         <Route path="/stock" element={<StockView />} />
         <Route path="/analysis" element={<AnalysisPage />} />
+        <Route path="/logout" element={<LoginPage />} />
       </Routes>
     </Router>
   );

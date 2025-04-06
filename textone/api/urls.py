@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import RegisterView, LoginView,ProductCreateView,StockView
+from .views import RegisterView, LoginView,ProductCreateView,StockView,ExportCSVView,ImportCSVView
 
 urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
@@ -8,4 +8,6 @@ urlpatterns = [
     path('stock/', StockView.as_view(), name='stock-view'),
     path('delete/<int:pk>/', StockView.as_view(), name='stock-view'),
     path('update/<int:pk>/', StockView.as_view(), name='stock-update'),
+    path('export/', ExportCSVView.as_view(), name='export-csv'),
+    path('import/', ImportCSVView.as_view(), name='import-csv'),
 ]
