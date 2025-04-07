@@ -19,6 +19,7 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
+      alert("hello")
       const res = await axios.post("https://stockmanagement-vnwu.onrender.com/api/login/", {
         username: loginData.username,
         password: loginData.password,
