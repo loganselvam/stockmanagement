@@ -14,10 +14,6 @@ const LoginPage = () => {
     email: "",
     password: "",
   });
-  useEffect(() => {
-    //Runs on every render
-    alert("hello")
-  });
   const handleLogin = async (e) => {
     e.preventDefault();
     console.log(API)
