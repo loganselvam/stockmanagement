@@ -62,9 +62,12 @@ MIDDLEWARE = [
     
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    "https://stockmanagemen.netlify.app",
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "https://stockmanagemen.netlify.app",
+#     "http://localhost:5173"
+# ]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 REST_FRAMEWORK = {
