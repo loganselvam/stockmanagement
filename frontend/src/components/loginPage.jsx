@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import App from "../App";
 
 const LoginPage = () => {
   const API = process.env.REACT_APP_API_BASE_URL;
@@ -18,8 +17,9 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    console.alert(API)
     try {
-      const res = await axios.post("https://stockmanagement-3htt.onrender.com/api/login/", {
+      const res = await axios.post(`${API}/api/login/`, {
         username: loginData.username,
         password: loginData.password,
       },
