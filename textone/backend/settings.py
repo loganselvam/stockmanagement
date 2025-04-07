@@ -104,6 +104,9 @@ DATABASES = {
         'PASSWORD': 'YYs1GSyN4r3EXx5ujLClsJke0uiZsXF3',
         'HOST': 'dpg-cvpc6uvgi27c73b3i0e0-a.oregon-postgres.render.com',
         'PORT': '5432',
+        'OPTIONS': {
+            'options': '-c search_path=public',
+        }
     }
 }
 
