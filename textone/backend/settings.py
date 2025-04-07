@@ -63,8 +63,9 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "https://stockmanagemen.netlify.app"
+    "https://stockmanagemen.netlify.app",
 ]
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
