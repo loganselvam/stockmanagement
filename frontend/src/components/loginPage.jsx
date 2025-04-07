@@ -18,7 +18,6 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    alert("hello world")
     try {
       const res = await axios.post("https://stockmanagement-3htt.onrender.com/api/login/", {
         username: loginData.username,
@@ -29,8 +28,8 @@ const LoginPage = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        // end
       }
+      // end
     );
       localStorage.setItem("token", res.data.token);
       navigate("/home");
