@@ -20,7 +20,7 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       alert("hello")
-      const res = await axios.post("https://stockmanagement-vnwu.onrender.com/api/login/", {
+      const res = await axios.post("https://stockmanagement-3htt.onrender.com/api/login/", {
         username: loginData.username,
         password: loginData.password,
       });
@@ -35,7 +35,7 @@ const LoginPage = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("https://stockmanagement-vnwu.onrender.com/api/register/", {
+      const res = await axios.post("https://stockmanagement-3htt.onrender.com/api/register/", {
         name: registerData.name,
         username: registerData.username,
         email: registerData.email,

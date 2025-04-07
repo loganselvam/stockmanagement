@@ -24,7 +24,7 @@ const AnalysisPage = () => {
       const token = localStorage.getItem("token");
 
       try {
-        const res = await axios.get("https://stockmanagement-vnwu.onrender.com/api/stock/", {
+        const res = await axios.get("https://stockmanagement-3htt.onrender.com/api/stock/", {
           headers: {
             Authorization: `Token ${token}`,
           },

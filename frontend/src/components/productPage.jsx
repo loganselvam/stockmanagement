@@ -25,7 +25,7 @@ const ProductForm = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.post("https://stockmanagement-vnwu.onrender.com/api/products/", product, {
+      const response = await axios.post("https://stockmanagement-3htt.onrender.com/api/products/", product, {
         headers: {
           Authorization: `Token ${token}`,
         },
@@ -48,7 +48,7 @@ const ProductForm = () => {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.post("https://stockmanagement-vnwu.onrender.com/api/import/", formData, {
+      const response = await axios.post("https://stockmanagement-3htt.onrender.com/api/import/", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Token ${token}`,
