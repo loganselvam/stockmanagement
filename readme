@@ -1,0 +1,50 @@
+# 🛒 Stock Management System
+
+A full-stack Stock Management System built using **React.js** for the frontend and **Django (DRF)** for the backend. This application allows users to register, log in, manage products, track stock levels, view sold items, and visualize sales analytics.
+
+---
+
+## 🌐 Live Demo
+
+- **Frontend (Netlify)**: [https://your-frontend-link.netlify.app](https://your-frontend-link.netlify.app)
+- **Backend (Render)**: [https://stockmanagement-3htt.onrender.com](https://stockmanagement-3htt.onrender.com)
+
+---
+
+## 📦 Features
+
+- 🔐 User Authentication (Register/Login)
+- 📦 Product Creation and Stock Overview
+- ✅ Edit & Mark Products as Sold
+- 📊 Revenue Analytics with Charts
+- 🔍 Responsive UI with Tailwind CSS
+- 🔗 API Integration using Axios
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **React.js**
+- **Tailwind CSS**
+- **Axios**
+- **React Router DOM**
+
+### Backend
+- **Django**
+- **Django REST Framework (DRF)**
+- **MySQL** (or SQLite if not configured)
+
+### Deployment
+- Frontend: **Netlify**
+- Backend: **Render**
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/stock-management.git
+cd stock-management
