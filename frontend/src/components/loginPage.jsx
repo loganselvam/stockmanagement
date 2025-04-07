@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -14,7 +14,10 @@ const LoginPage = () => {
     email: "",
     password: "",
   });
-
+  useEffect(() => {
+    //Runs on every render
+    alert("hello")
+  });
   const handleLogin = async (e) => {
     e.preventDefault();
     console.log(API)
