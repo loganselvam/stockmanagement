@@ -17,7 +17,7 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.alert(API)
+    console.log(API)
     try {
       const res = await axios.post(`${API}/api/login/`, {
         username: loginData.username,
