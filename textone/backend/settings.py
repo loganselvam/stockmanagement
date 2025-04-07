@@ -66,6 +66,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://stockmanagemen.netlify.app",
 ]
 
+CORS_ALLOW_CREDENTIALS = True
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
