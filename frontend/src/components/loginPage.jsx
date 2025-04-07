@@ -23,11 +23,11 @@ const LoginPage = () => {
         password: loginData.password,
       },
       // extra
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
+      // {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // }
       // end
     );
       localStorage.setItem("token", res.data.token);
