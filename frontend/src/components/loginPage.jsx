@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import App from "../App";
 
 const LoginPage = () => {
+  const API = process.env.REACT_APP_API_BASE_URL;
+  console.log("API:",API)
   const [showRegister, setShowRegister] = useState(false);
   const navigate = useNavigate();
   const [loginData, setLoginData] = useState({ username: "", password: "" });
