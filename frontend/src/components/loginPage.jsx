@@ -18,8 +18,8 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    alert("hello")
     try {
-      alert("hello")
       const res = await axios.post("https://stockmanagement-3htt.onrender.com/api/login/", {
         username: loginData.username,
         password: loginData.password,
