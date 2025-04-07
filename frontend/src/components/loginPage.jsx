@@ -23,7 +23,15 @@ const LoginPage = () => {
       const res = await axios.post("https://stockmanagement-3htt.onrender.com/api/login/", {
         username: loginData.username,
         password: loginData.password,
-      });
+      },
+      // extra
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // end
+      }
+    );
       localStorage.setItem("token", res.data.token);
       navigate("/home");
       alert("Login successful!");
